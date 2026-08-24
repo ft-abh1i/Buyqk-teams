@@ -22,7 +22,7 @@
     },
     "groups": {
       ".read": "auth != null && auth.token.email_verified == true && (auth.token.email == 'buyqk.shrivastavabhii@gmail.com' || auth.token.email == 'akshat.srivastava098@gmail.com' || auth.token.email == 'ankitsrigzb@gmail.com' || auth.token.email == 'buyqk.namangoel@gmail.com' || auth.token.email == 'buyqk.aniketkumar@gmail.com' || auth.token.email == 'buyq.maxalwani@gmail.com' || auth.token.email == 'buyqk.maxalwani@gmail.com' || auth.token.email == 'buyqk.ankitshrivastav@gmail.com')",
-      ".write": "auth != null && auth.token.email_verified == true && (auth.token.email == 'buyqk.shrivastavabhii@gmail.com' || auth.token.email == 'akshat.srivastava098@gmail.com')"
+      ".write": "auth != null && auth.token.email_verified == true && (auth.token.email == 'buyqk.shrivastavabhii@gmail.com' || auth.token.email == 'akshat.srivastava098@gmail.com' || auth.token.email == 'buyqk.ankitshrivastav@gmail.com')"
     },
     "calls": {
       ".read": "auth != null && auth.token.email_verified == true && (auth.token.email == 'buyqk.shrivastavabhii@gmail.com' || auth.token.email == 'akshat.srivastava098@gmail.com' || auth.token.email == 'ankitsrigzb@gmail.com' || auth.token.email == 'buyqk.namangoel@gmail.com' || auth.token.email == 'buyqk.aniketkumar@gmail.com' || auth.token.email == 'buyq.maxalwani@gmail.com' || auth.token.email == 'buyqk.maxalwani@gmail.com' || auth.token.email == 'buyqk.ankitshrivastav@gmail.com')",
