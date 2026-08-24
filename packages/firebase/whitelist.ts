@@ -18,6 +18,7 @@ export const ADMIN_EMAILS = [
 // Users who have access to the HR & Human Capital Hub (hr.buyqk.com) and the Team Console (team.buyqk.com)
 export const HR_EMAILS = [
   'buyqk.shrivastavabhii@gmail.com',
+  'buyqk.ankitshrivastav@gmail.com',
   'akshat.srivastava098@gmail.com',
   'ankitsrigzb@gmail.com',
   'buyqk.namangoel@gmail.com',
