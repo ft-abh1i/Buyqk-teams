@@ -8,6 +8,7 @@
 // Users who have access to the Super Admin Control Hub (admin.buyqk.com)
 export const ADMIN_EMAILS = [
   'buyqk.shrivastavabhii@gmail.com',
+  'buyqk.ankitshrivastav@gmail.com',
   'akshat.srivastava098@gmail.com',
   'ankitsrigzb@gmail.com',
   'buyqk.namangoel@gmail.com',
@@ -30,7 +31,8 @@ export const HR_EMAILS = [
 // Accounts with permanent Teams Portal owner privileges.
 export const SUPER_ADMIN_EMAILS = [
   'buyqk.shrivastavabhii@gmail.com',
-  'akshat.srivastava098@gmail.com'
+  'akshat.srivastava098@gmail.com',
+  'buyqk.ankitshrivastav@gmail.com'
 ];
 
 const TEAM_EMAILS = Array.from(new Set([
