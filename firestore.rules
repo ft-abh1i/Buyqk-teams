@@ -16,7 +16,8 @@ service cloud.firestore {
         'buyqk.namangoel@gmail.com',
         'buyqk.aniketkumar@gmail.com',
         'buyq.maxalwani@gmail.com',
-        'buyqk.maxalwani@gmail.com'
+        'buyqk.maxalwani@gmail.com',
+        'buyqk.ankitshrivastav@gmail.com'
       ];
     }
 
