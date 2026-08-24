@@ -11,7 +11,7 @@ import { collection, onSnapshot, doc, updateDoc, setDoc, deleteDoc } from 'fireb
 import { ref, onValue } from 'firebase/database';
 
 export const AdminDashboardPage: React.FC = () => {
-  const { isAdmin, isSuperAdmin, currentUser } = useAuth();
+  const { isAdmin, isSuperAdmin, currentUser, profile } = useAuth();
   const navigate = useNavigate();
 
   const [employees, setEmployees] = useState<EmployeeProfile[]>([]);
@@ -74,7 +74,7 @@ export const AdminDashboardPage: React.FC = () => {
         id: annId,
         title: annTitle.trim(),
         content: annContent.trim(),
-        author: 'Super Admin (Akshat)',
+        author: profile?.fullName || currentUser?.displayName || 'Super Admin',
         authorAvatar: '',
         createdAt: Date.now()
       };

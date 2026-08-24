@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { 
-  firebaseAuth, db, rtdb 
+  firebaseAuth, db, rtdb, isSuperAdminEmail, isTeamEmailAllowed
 } from '@buyqk/firebase';
 import { 
   GoogleAuthProvider, signInWithPopup, signOut as firebaseSignOut, User 
@@ -13,15 +13,7 @@ import {
 } from 'firebase/database';
 import { EmployeeProfile } from '../types';
 
-export const SUPER_ADMIN_EMAIL = 'akshat.srivastava098@gmail.com';
-
-export const isAllowedEmail = (email: string | null | undefined): boolean => {
-  if (!email) return false;
-  const cleanEmail = email.toLowerCase().trim();
-  if (cleanEmail === SUPER_ADMIN_EMAIL.toLowerCase()) return true;
-  if (cleanEmail === 'buyq.maxalwani@gmail.com') return true;
-  return /^buyq(k)?.*@gmail\.com$/.test(cleanEmail);
-};
+export const isAllowedEmail = isTeamEmailAllowed;
 
 interface AuthContextType {
   currentUser: User | null;
@@ -45,7 +37,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isAccessRestricted, setIsAccessRestricted] = useState<boolean>(false);
   const [unauthorizedEmail, setUnauthorizedEmail] = useState<string>('');
 
-  const isSuperAdmin = currentUser?.email?.toLowerCase() === SUPER_ADMIN_EMAIL.toLowerCase() || profile?.isSuperAdmin === true;
+  const isSuperAdmin = isSuperAdminEmail(currentUser?.email) || profile?.isSuperAdmin === true;
   const isAdmin = isSuperAdmin || profile?.isAdmin === true;
 
   // Realtime Presence Setup

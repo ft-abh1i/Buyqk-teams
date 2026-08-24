@@ -5,6 +5,7 @@ import {
 } from '@buyqk/types';
 
 import { ADMIN_EMAILS, HR_EMAILS } from './whitelist';
+export { isSuperAdminEmail, isTeamEmailAllowed } from './whitelist';
 
 import { initializeApp, getApps, FirebaseApp, deleteApp } from 'firebase/app';
 import {
@@ -32,13 +33,13 @@ import { getDatabase, Database } from 'firebase/database';
 const env = (typeof (import.meta as any).env !== 'undefined') ? (import.meta as any).env : {};
 
 const firebaseConfig = {
-  apiKey: env.VITE_FIREBASE_API_KEY || 'AIzaSyCbzuY2AZxolv2ahAX-P6ob0HFvpDvpu-o',
-  authDomain: env.VITE_FIREBASE_AUTH_DOMAIN || 'getitnow-4e178.firebaseapp.com',
-  projectId: env.VITE_FIREBASE_PROJECT_ID || 'getitnow-4e178',
-  storageBucket: env.VITE_FIREBASE_STORAGE_BUCKET || 'getitnow-4e178.firebasestorage.app',
-  messagingSenderId: env.VITE_FIREBASE_MESSAGING_SENDER_ID || '75510954846',
-  appId: env.VITE_FIREBASE_APP_ID || '1:75510954846:web:191a22e6554c0bf6d86dcf',
-  measurementId: env.VITE_FIREBASE_MEASUREMENT_ID || 'G-M724JPB2VS'
+  apiKey: env.VITE_FIREBASE_API_KEY || 'AIzaSyDtVt-YzG5nShekcRJVMQfjsbyF99QOrNI',
+  authDomain: env.VITE_FIREBASE_AUTH_DOMAIN || 'buyqk-teams.firebaseapp.com',
+  databaseURL: env.VITE_FIREBASE_DATABASE_URL || 'https://buyqk-teams-default-rtdb.asia-southeast1.firebasedatabase.app',
+  projectId: env.VITE_FIREBASE_PROJECT_ID || 'buyqk-teams',
+  storageBucket: env.VITE_FIREBASE_STORAGE_BUCKET || 'buyqk-teams.firebasestorage.app',
+  messagingSenderId: env.VITE_FIREBASE_MESSAGING_SENDER_ID || '1041338794149',
+  appId: env.VITE_FIREBASE_APP_ID || '1:1041338794149:web:fa794d1e75db1f27d60d4c'
 };
 
 let firebaseApp: FirebaseApp;

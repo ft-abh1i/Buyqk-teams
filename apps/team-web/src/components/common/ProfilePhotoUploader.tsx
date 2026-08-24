@@ -1,7 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { Upload, Image as ImageIcon, CheckCircle, RefreshCw, AlertTriangle } from 'lucide-react';
-import { db } from '@buyqk/firebase';
-import { doc, setDoc } from 'firebase/firestore';
 
 interface Props {
   uid: string;
@@ -64,10 +62,8 @@ export const ProfilePhotoUploader: React.FC<Props> = ({ uid, initialUrl, onUploa
       setPreview(dataUrl);
       setProgress(60);
 
-      // 2. Write directly into Firestore (no Firebase Storage needed)
-      if (uid && uid !== 'temp') {
-        await setDoc(doc(db, 'users', uid), { photoUrl: dataUrl }, { merge: true });
-      }
+      // 2. Keep the compressed image in the profile form. The complete profile
+      // document is saved atomically when the user submits the form.
       setProgress(100);
       setUploading(false);
       onUploadSuccess(dataUrl);

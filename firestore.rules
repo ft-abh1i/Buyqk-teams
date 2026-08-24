@@ -1,0 +1,88 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function hasVerifiedEmail() {
+      return request.auth != null
+        && request.auth.token.email is string
+        && request.auth.token.email_verified == true;
+    }
+
+    function isAllowedTeamMember() {
+      return hasVerifiedEmail() && request.auth.token.email in [
+        'buyqk.shrivastavabhii@gmail.com',
+        'akshat.srivastava098@gmail.com',
+        'ankitsrigzb@gmail.com',
+        'buyqk.namangoel@gmail.com',
+        'buyqk.aniketkumar@gmail.com',
+        'buyq.maxalwani@gmail.com',
+        'buyqk.maxalwani@gmail.com'
+      ];
+    }
+
+    function isSuperAdmin() {
+      return isAllowedTeamMember() && request.auth.token.email in [
+        'buyqk.shrivastavabhii@gmail.com',
+        'akshat.srivastava098@gmail.com'
+      ];
+    }
+
+    function hasAdminProfile() {
+      return exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
+    }
+
+    function isAdmin() {
+      return isSuperAdmin() || (isAllowedTeamMember() && hasAdminProfile());
+    }
+
+    function isOwner(userId) {
+      return isAllowedTeamMember() && request.auth.uid == userId;
+    }
+
+    function identityIsValid(userId) {
+      return request.resource.data.uid == userId
+        && request.resource.data.email == request.auth.token.email;
+    }
+
+    function identityIsUnchanged() {
+      return request.resource.data.uid == resource.data.uid
+        && request.resource.data.email == resource.data.email;
+    }
+
+    match /users/{userId} {
+      allow read: if isAllowedTeamMember();
+
+      allow create: if isOwner(userId)
+        && identityIsValid(userId)
+        && request.resource.data.isAdmin == isSuperAdmin()
+        && request.resource.data.isSuperAdmin == isSuperAdmin();
+
+      allow update: if isAllowedTeamMember()
+        && identityIsUnchanged()
+        && (
+          isSuperAdmin()
+          || (isAdmin() && request.resource.data.isSuperAdmin == resource.data.isSuperAdmin)
+          || (isOwner(userId)
+            && request.resource.data.isAdmin == resource.data.isAdmin
+            && request.resource.data.isSuperAdmin == resource.data.isSuperAdmin)
+        );
+
+      allow delete: if isSuperAdmin();
+    }
+
+    match /announcements/{announcementId} {
+      allow read: if isAllowedTeamMember();
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /groups/{groupId} {
+      allow read: if isAllowedTeamMember();
+      allow create, update, delete: if isSuperAdmin();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

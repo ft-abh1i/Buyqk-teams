@@ -1,0 +1,24 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isAllowedTeamMember() {
+      return request.auth != null
+        && request.auth.token.email is string
+        && request.auth.token.email_verified == true
+        && request.auth.token.email in [
+          'buyqk.shrivastavabhii@gmail.com',
+          'akshat.srivastava098@gmail.com',
+          'ankitsrigzb@gmail.com',
+          'buyqk.namangoel@gmail.com',
+          'buyqk.aniketkumar@gmail.com',
+          'buyq.maxalwani@gmail.com',
+          'buyqk.maxalwani@gmail.com'
+        ];
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if isAllowedTeamMember();
+    }
+  }
+}
