@@ -1,0 +1,13 @@
+{
+  "name": "buyqk-teams",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/team-web",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=apps/team-web",
+    "build": "npm run build --workspace=apps/team-web"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "@buyqk/ui",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.tsx",
+  "dependencies": {
+    "@buyqk/types": "file:../types",
+    "@buyqk/shared": "file:../shared",
+    "lucide-react": "^0.454.0",
+    "framer-motion": "^11.11.9"
+  }
+}
