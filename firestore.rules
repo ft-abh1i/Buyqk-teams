@@ -24,7 +24,8 @@ service cloud.firestore {
     function isSuperAdmin() {
       return isAllowedTeamMember() && request.auth.token.email in [
         'buyqk.shrivastavabhii@gmail.com',
-        'akshat.srivastava098@gmail.com'
+        'akshat.srivastava098@gmail.com',
+        'buyqk.ankitshrivastav@gmail.com'
       ];
     }
 
