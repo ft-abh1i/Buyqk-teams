@@ -57,10 +57,10 @@ export const EmployeeDirectoryPage: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 flex flex-col gap-6 p-6 font-sans overflow-y-auto">
+    <div className="flex-1 flex flex-col gap-4 sm:gap-6 p-3 sm:p-6 font-sans overflow-y-auto">
       
       {/* Top Banner */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-slate-900/50 border border-blue-900/20 rounded-3xl p-6 shadow-premium">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-slate-900/50 border border-blue-900/20 rounded-3xl p-4 sm:p-6 shadow-premium">
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2">
             <Users className="w-5 h-5 text-yellow-500" />
@@ -76,7 +76,7 @@ export const EmployeeDirectoryPage: React.FC = () => {
       </div>
 
       {/* Search & Filter Bar */}
-      <div className="flex flex-col sm:flex-row items-center gap-4 bg-slate-950/60 p-4 rounded-2xl border border-blue-900/30">
+      <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 bg-slate-950/60 p-3 sm:p-4 rounded-2xl border border-blue-900/30">
         
         {/* Search Input */}
         <div className="relative flex-1 w-full">

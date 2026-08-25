@@ -118,12 +118,12 @@ export const AdminDashboardPage: React.FC = () => {
   if (!isAdmin) return null;
 
   return (
-    <div className="flex-1 flex flex-col gap-6 p-6 font-sans overflow-y-auto">
+    <div className="flex-1 flex flex-col gap-4 sm:gap-6 p-3 sm:p-6 font-sans overflow-y-auto">
       
       {/* Top Banner */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-gradient-to-r from-purple-950 via-slate-900 to-slate-950 border border-purple-500/40 rounded-3xl p-6 shadow-2xl">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-gradient-to-r from-purple-950 via-slate-900 to-slate-950 border border-purple-500/40 rounded-3xl p-4 sm:p-6 shadow-2xl">
         <div className="flex flex-col gap-1">
-          <div className="flex items-center gap-2">
+          <div className="flex items-start sm:items-center gap-2">
             <ShieldCheck className="w-6 h-6 text-purple-400" />
             <h1 className="text-xl sm:text-2xl font-black text-white">
               {isSuperAdmin ? 'Super Admin Control Center' : 'Admin Control Center'}
@@ -142,7 +142,7 @@ export const AdminDashboardPage: React.FC = () => {
       </div>
 
       {/* Analytics Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <div className="bg-slate-900/50 border border-purple-500/20 rounded-2xl p-4 flex items-center gap-4 shadow-premium">
           <div className="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center font-black text-xl shrink-0">
             {employees.length}
@@ -189,7 +189,7 @@ export const AdminDashboardPage: React.FC = () => {
         
         {/* Left 2 Cols: Employee Management */}
         <div className="lg:col-span-2 flex flex-col gap-6">
-          <div className="bg-slate-900/50 border border-blue-900/20 rounded-3xl p-6 shadow-premium flex flex-col gap-4">
+          <div className="bg-slate-900/50 border border-blue-900/20 rounded-3xl p-4 sm:p-6 shadow-premium flex flex-col gap-4">
             <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
               <Users className="w-4 h-4 text-purple-400" />
               <h3 className="text-sm font-extrabold uppercase text-slate-200 tracking-wider">Employee Management & Privileges</h3>
@@ -197,8 +197,8 @@ export const AdminDashboardPage: React.FC = () => {
 
             <div className="flex flex-col gap-2 max-h-[450px] overflow-y-auto pr-1">
               {employees.map(emp => (
-                <div key={emp.uid} className="bg-slate-950/80 p-3.5 rounded-2xl border border-blue-900/20 flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-3 overflow-hidden">
+                <div key={emp.uid} className="bg-slate-950/80 p-3.5 rounded-2xl border border-blue-900/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="flex min-w-0 items-center gap-3 overflow-hidden">
                     <div className="w-10 h-10 rounded-xl border border-purple-500/30 bg-slate-800 shrink-0 overflow-hidden flex items-center justify-center text-sm font-black text-purple-300">
                       {emp.photoUrl
                         ? <img src={emp.photoUrl} alt={emp.fullName} className="w-full h-full object-cover" />
@@ -211,10 +211,10 @@ export const AdminDashboardPage: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 shrink-0">
+                  <div className="flex w-full sm:w-auto items-center gap-2 shrink-0">
                     <button
                       onClick={() => handleToggleAdminRole(emp)}
-                      className={`px-2.5 py-1.5 rounded-xl text-[10px] font-bold transition-all ${
+                      className={`flex-1 sm:flex-none px-2.5 py-1.5 rounded-xl text-[10px] font-bold transition-all ${
                         emp.isAdmin 
                           ? 'bg-purple-500/20 text-purple-300 border border-purple-500/40' 
                           : 'bg-slate-800 text-slate-400 hover:text-white'
@@ -225,7 +225,7 @@ export const AdminDashboardPage: React.FC = () => {
 
                     <button
                       onClick={() => handleToggleDisableAccount(emp)}
-                      className={`px-2.5 py-1.5 rounded-xl text-[10px] font-bold transition-all ${
+                      className={`flex-1 sm:flex-none px-2.5 py-1.5 rounded-xl text-[10px] font-bold transition-all ${
                         emp.status === 'disabled' 
                           ? 'bg-red-500 text-white shadow-lg' 
                           : 'bg-slate-800 text-red-400 hover:bg-red-500/10'
@@ -242,7 +242,7 @@ export const AdminDashboardPage: React.FC = () => {
 
         {/* Right 1 Col: Broadcast Announcements */}
         <div className="flex flex-col gap-6">
-          <div className="bg-slate-900/50 border border-blue-900/20 rounded-3xl p-6 shadow-premium flex flex-col gap-4">
+          <div className="bg-slate-900/50 border border-blue-900/20 rounded-3xl p-4 sm:p-6 shadow-premium flex flex-col gap-4">
             <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
               <Megaphone className="w-4 h-4 text-yellow-500" />
               <h3 className="text-sm font-extrabold uppercase text-slate-200 tracking-wider">Broadcast Announcement</h3>

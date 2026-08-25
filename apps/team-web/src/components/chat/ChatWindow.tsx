@@ -4,7 +4,7 @@ import { ChatMessage, ChatGroup, EmployeeProfile } from '../../types';
 import { MessageBubble } from './MessageBubble';
 import { 
   Send, Paperclip, Smile, Image as ImageIcon, Search, 
-  X, Pin, ShieldCheck, Phone, Video, MoreVertical, RefreshCw 
+  X, Pin, ShieldCheck, Phone, Video, MoreVertical, RefreshCw, ArrowLeft
 } from 'lucide-react';
 import { rtdb, storageService } from '@buyqk/firebase';
 import { ref, push, set, onValue, remove, update } from 'firebase/database';
@@ -18,6 +18,7 @@ interface Props {
   isGroup?: boolean;
   groupObj?: ChatGroup;
   recipientObj?: EmployeeProfile;
+  onBack?: () => void;
 }
 
 const EMOJI_LIST = ['👍', '❤️', '🔥', '🚀', '🎉', '😂', '🙌', '👏', '💯', '✅', '💡', '✨'];
@@ -28,7 +29,8 @@ export const ChatWindow: React.FC<Props> = ({
   chatAvatar,
   isGroup,
   groupObj,
-  recipientObj
+  recipientObj,
+  onBack
 }) => {
   const { profile, currentUser } = useAuth();
   const { startCall } = useCall();
@@ -226,9 +228,18 @@ export const ChatWindow: React.FC<Props> = ({
     <div className="flex-1 flex flex-col h-full bg-slate-950/40 border border-blue-900/20 rounded-2xl overflow-hidden font-sans shadow-2xl">
       
       {/* Top Header */}
-      <div className="bg-slate-900/80 border-b border-blue-900/30 p-3.5 flex items-center justify-between z-10">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl overflow-hidden border border-yellow-500/40 bg-slate-800 shrink-0 flex items-center justify-center font-black text-sm text-yellow-400">
+      <div className="relative bg-slate-900/80 border-b border-blue-900/30 p-2.5 sm:p-3.5 flex items-center justify-between gap-2 z-10">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+          <button
+            type="button"
+            onClick={onBack}
+            aria-label="Back to conversations"
+            className="md:hidden p-2 -ml-1 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition-colors shrink-0"
+          >
+            <ArrowLeft className="w-4 h-4" />
+          </button>
+
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl overflow-hidden border border-yellow-500/40 bg-slate-800 shrink-0 flex items-center justify-center font-black text-sm text-yellow-400">
             {chatAvatar ? (
               <img 
                 src={chatAvatar} 
@@ -239,11 +250,11 @@ export const ChatWindow: React.FC<Props> = ({
               <span>{(chatName || '?').charAt(0).toUpperCase()}</span>
             )}
           </div>
-          <div>
+          <div className="min-w-0">
             <div className="flex items-center gap-2">
-              <h3 className="font-extrabold text-white text-sm tracking-wide">{chatName}</h3>
+              <h3 className="font-extrabold text-white text-sm tracking-wide truncate">{chatName}</h3>
               {isGroup && (
-                <span className="text-[9px] font-bold uppercase bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 px-2 py-0.5 rounded-full">
+                <span className="hidden sm:inline-flex text-[9px] font-bold uppercase bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 px-2 py-0.5 rounded-full shrink-0">
                   Group Channel
                 </span>
               )}
@@ -261,15 +272,15 @@ export const ChatWindow: React.FC<Props> = ({
         </div>
 
         {/* Top Header Controls */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2 shrink-0">
           {isSearching ? (
-            <div className="flex items-center gap-1.5 bg-slate-950 border border-yellow-500/40 px-2.5 py-1 rounded-xl">
+            <div className="absolute inset-x-2 top-2 z-20 flex items-center gap-1.5 bg-slate-950 border border-yellow-500/40 px-2.5 py-2 rounded-xl md:static md:z-auto md:py-1">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
                 placeholder="Filter messages..."
-                className="bg-transparent text-xs text-white placeholder-slate-500 focus:outline-none w-36"
+                className="min-w-0 flex-1 md:flex-none bg-transparent text-xs text-white placeholder-slate-500 focus:outline-none md:w-36"
                 autoFocus
               />
               <button onClick={() => { setIsSearching(false); setSearchQuery(''); }} className="text-slate-400 hover:text-white">
@@ -318,11 +329,11 @@ export const ChatWindow: React.FC<Props> = ({
       )}
 
       {/* Messages Scroll Area */}
-      <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3.5 scrollbar-thin">
+      <div className="flex-1 overflow-y-auto p-3 sm:p-4 flex flex-col gap-3.5 scrollbar-thin">
         {filteredMessages.length === 0 ? (
           <div className="flex flex-col items-center justify-center my-auto gap-2 text-slate-500">
             <Smile className="w-8 h-8 text-slate-600" />
-            <p className="text-xs font-semibold">No messages in this workspace yet. Start the conversation!</p>
+            <p className="text-xs font-semibold text-center">No messages in this workspace yet. Start the conversation!</p>
           </div>
         ) : (
           filteredMessages.map((msg) => (
@@ -366,13 +377,13 @@ export const ChatWindow: React.FC<Props> = ({
       )}
 
       {/* Bottom Input Controls */}
-      <form onSubmit={handleSendMessage} className="bg-slate-900/90 border-t border-blue-900/30 p-3 flex items-center gap-2 relative">
+      <form onSubmit={handleSendMessage} className="bg-slate-900/90 border-t border-blue-900/30 p-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] sm:p-3 flex items-center gap-1.5 sm:gap-2 relative">
         
         {/* Emoji Selector Trigger */}
         <button
           type="button"
           onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-          className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 hover:text-yellow-400 transition-all"
+          className="p-2 sm:p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 hover:text-yellow-400 transition-all shrink-0"
         >
           <Smile className="w-4 h-4" />
         </button>
@@ -399,7 +410,7 @@ export const ChatWindow: React.FC<Props> = ({
         <button
           type="button"
           onClick={() => fileInputRef.current?.click()}
-          className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 hover:text-yellow-400 transition-all"
+          className="p-2 sm:p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 hover:text-yellow-400 transition-all shrink-0"
         >
           <Paperclip className="w-4 h-4" />
           <input type="file" ref={fileInputRef} className="hidden" onChange={handleFileUpload} />
@@ -411,14 +422,14 @@ export const ChatWindow: React.FC<Props> = ({
           value={inputText}
           onChange={handleInputChange}
           placeholder={`Message #${chatName}...`}
-          className="flex-1 bg-slate-950 border border-blue-900/30 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-yellow-500/60 font-sans"
+          className="min-w-0 flex-1 bg-slate-950 border border-blue-900/30 rounded-xl px-3 sm:px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-yellow-500/60 font-sans"
         />
 
         {/* Send Button */}
         <button
           type="submit"
           disabled={!inputText.trim()}
-          className="bg-yellow-500 hover:bg-yellow-400 disabled:opacity-40 text-slate-950 font-extrabold p-2.5 rounded-xl shadow-gold-glow transition-all cursor-pointer"
+          className="bg-yellow-500 hover:bg-yellow-400 disabled:opacity-40 text-slate-950 font-extrabold p-2.5 rounded-xl shadow-gold-glow transition-all cursor-pointer shrink-0"
         >
           <Send className="w-4 h-4" />
         </button>

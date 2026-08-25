@@ -8,10 +8,10 @@ export const SettingsPage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex-1 flex flex-col gap-6 p-6 font-sans overflow-y-auto">
+    <div className="flex-1 flex flex-col gap-4 sm:gap-6 p-3 sm:p-6 font-sans overflow-y-auto">
       
       {/* Top Banner */}
-      <div className="bg-slate-900/50 border border-blue-900/20 rounded-3xl p-6 shadow-premium flex items-center gap-3">
+      <div className="bg-slate-900/50 border border-blue-900/20 rounded-3xl p-4 sm:p-6 shadow-premium flex items-start sm:items-center gap-3">
         <Settings className="w-6 h-6 text-yellow-500" />
         <div>
           <h1 className="text-xl sm:text-2xl font-black text-white">Teams Workspace Settings</h1>
@@ -29,17 +29,17 @@ export const SettingsPage: React.FC = () => {
             <h3 className="text-xs font-extrabold uppercase text-slate-200 tracking-wider">Account Overview</h3>
           </div>
 
-          <div className="flex items-center justify-between text-xs py-1">
+          <div className="flex items-start justify-between gap-4 text-xs py-1">
             <span className="text-slate-400 font-medium">Logged In Email</span>
-            <span className="font-mono text-white font-bold">{currentUser?.email}</span>
+            <span className="font-mono text-white font-bold break-all text-right">{currentUser?.email}</span>
           </div>
 
-          <div className="flex items-center justify-between text-xs py-1">
+          <div className="flex items-center justify-between gap-4 text-xs py-1">
             <span className="text-slate-400 font-medium">Employee ID</span>
             <span className="font-mono text-yellow-400 font-bold">#{profile?.employeeId || '089'}</span>
           </div>
 
-          <div className="flex items-center justify-between text-xs py-1">
+          <div className="flex items-center justify-between gap-4 text-xs py-1">
             <span className="text-slate-400 font-medium">System Role</span>
             <span className="font-mono text-purple-400 font-bold">{isSuperAdmin ? 'Super Admin' : 'Employee'}</span>
           </div>
@@ -52,7 +52,7 @@ export const SettingsPage: React.FC = () => {
             <h3 className="text-xs font-extrabold uppercase text-slate-200 tracking-wider">Theme & Visuals</h3>
           </div>
 
-          <div className="flex items-center justify-between text-xs py-1">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs py-1">
             <span className="text-slate-400 font-medium">Appearance Theme</span>
             <span className="font-bold text-yellow-500 bg-yellow-500/10 border border-yellow-500/20 px-2.5 py-1 rounded-xl">Dark Glassmorphism</span>
           </div>

@@ -3,11 +3,16 @@ import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { 
   LayoutDashboard, MessageSquare, Users, FolderKanban, 
-  UserCircle, ShieldCheck, Settings, Sparkles, Rocket 
+  UserCircle, ShieldCheck, Settings, Rocket
 } from 'lucide-react';
 
-export const Sidebar: React.FC = () => {
-  const { isAdmin, isSuperAdmin, profile } = useAuth();
+interface SidebarProps {
+  mobileOpen?: boolean;
+  onMobileClose?: () => void;
+}
+
+export const Sidebar: React.FC<SidebarProps> = ({ mobileOpen = false, onMobileClose }) => {
+  const { isAdmin, profile } = useAuth();
 
   const navItems = [
     { label: 'Dashboard', path: '/teams/dashboard', icon: LayoutDashboard },
@@ -24,7 +29,22 @@ export const Sidebar: React.FC = () => {
   navItems.push({ label: 'Settings', path: '/teams/settings', icon: Settings });
 
   return (
-    <aside className="no-print w-64 bg-slate-950/80 border-r border-blue-900/20 flex flex-col justify-between p-4 shrink-0 font-sans min-h-[calc(100vh-4rem)] select-none">
+    <>
+      {mobileOpen && (
+        <button
+          type="button"
+          aria-label="Close navigation menu"
+          onClick={onMobileClose}
+          className="fixed inset-x-0 bottom-0 top-14 sm:top-16 z-40 bg-slate-950/75 backdrop-blur-sm lg:hidden"
+        />
+      )}
+
+      <aside
+        aria-label="Primary navigation"
+        className={`no-print fixed bottom-0 left-0 top-14 sm:top-16 lg:static z-50 w-[min(19rem,86vw)] lg:w-64 h-[calc(100dvh-3.5rem)] sm:h-[calc(100dvh-4rem)] lg:h-auto bg-slate-950/95 lg:bg-slate-950/80 border-r border-blue-900/20 flex flex-col justify-between p-4 shrink-0 font-sans lg:min-h-[calc(100vh-4rem)] select-none overflow-y-auto shadow-2xl lg:shadow-none transition-transform duration-200 ease-out lg:translate-x-0 ${
+          mobileOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
       <div className="flex flex-col gap-6">
         
         {/* User Quick Info */}
@@ -56,6 +76,7 @@ export const Sidebar: React.FC = () => {
               <NavLink
                 key={item.path}
                 to={item.path}
+                onClick={onMobileClose}
                 className={({ isActive }) =>
                   `flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all ${
                     isActive
@@ -97,6 +118,7 @@ export const Sidebar: React.FC = () => {
         </div>
       </div>
 
-    </aside>
+      </aside>
+    </>
   );
 };

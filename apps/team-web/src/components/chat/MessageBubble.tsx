@@ -24,9 +24,9 @@ export const MessageBubble: React.FC<Props> = ({ message, isOwn, onReply, onEdit
   if (message.isCallRecord || message.text?.startsWith('📞') || message.text?.startsWith('📹')) {
     return (
       <div className="flex items-center justify-center my-3 w-full font-sans">
-        <div className="bg-slate-900/90 border border-yellow-500/30 px-4 py-2 rounded-2xl flex items-center gap-2.5 shadow-lg">
+        <div className="max-w-full bg-slate-900/90 border border-yellow-500/30 px-3 sm:px-4 py-2 rounded-2xl flex flex-wrap items-center justify-center gap-2.5 shadow-lg">
           <Phone className="w-4 h-4 text-yellow-500 shrink-0" />
-          <span className="text-xs font-bold text-slate-200">{message.text}</span>
+          <span className="text-xs font-bold text-slate-200 break-words">{message.text}</span>
           <span className="text-[9px] font-mono text-slate-500">
             {new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
           </span>
@@ -48,7 +48,7 @@ export const MessageBubble: React.FC<Props> = ({ message, isOwn, onReply, onEdit
         </div>
       )}
 
-      <div className="relative flex items-center gap-2 max-w-[85%] sm:max-w-[70%]">
+      <div className="relative flex min-w-0 items-center gap-2 max-w-[92%] sm:max-w-[70%]">
         
         {/* Hover Action Bar */}
         <div className={`hidden group-hover:flex items-center gap-1 bg-slate-900 border border-slate-700 px-2 py-1 rounded-xl shadow-lg z-10 ${isOwn ? 'order-first' : 'order-last'}`}>
@@ -74,7 +74,7 @@ export const MessageBubble: React.FC<Props> = ({ message, isOwn, onReply, onEdit
         </div>
 
         {/* Message Bubble Body */}
-        <div className={`p-3.5 rounded-2xl flex flex-col gap-1.5 shadow-md ${
+        <div className={`min-w-0 max-w-full p-3 sm:p-3.5 rounded-2xl flex flex-col gap-1.5 shadow-md ${
           isOwn 
             ? 'bg-gradient-to-tr from-yellow-500 to-amber-400 text-slate-950 rounded-tr-none font-medium' 
             : 'bg-slate-900 border border-blue-900/30 text-slate-100 rounded-tl-none'
@@ -112,7 +112,7 @@ export const MessageBubble: React.FC<Props> = ({ message, isOwn, onReply, onEdit
           )}
 
           {/* Text Content */}
-          <p className="text-xs sm:text-sm whitespace-pre-wrap leading-relaxed select-text">
+          <p className="text-xs sm:text-sm whitespace-pre-wrap break-words leading-relaxed select-text">
             {message.text}
           </p>
 

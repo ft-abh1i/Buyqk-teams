@@ -4,11 +4,10 @@ import { useSearchParams } from 'react-router-dom';
 import { ChatWindow } from '../components/chat/ChatWindow';
 import { EmployeeProfile, ChatGroup } from '../types';
 import { 
-  Search, MessageSquare, FolderKanban, Users, Pin, 
-  Plus, ShieldCheck, Sparkles, CheckCircle2, ChevronRight 
+  Search, MessageSquare, FolderKanban, ChevronRight
 } from 'lucide-react';
 import { db, rtdb } from '@buyqk/firebase';
-import { collection, onSnapshot, query, orderBy, getDocs } from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
 import { ref, onValue } from 'firebase/database';
 
 export const ChatPage: React.FC = () => {
@@ -26,6 +25,7 @@ export const ChatPage: React.FC = () => {
   const [groups, setGroups] = useState<ChatGroup[]>([]);
   const [onlineStatusMap, setOnlineStatusMap] = useState<Record<string, boolean>>({});
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [showMobileChat, setShowMobileChat] = useState<boolean>(false);
 
   useEffect(() => {
     // 1. Listen to all employees
@@ -70,17 +70,17 @@ export const ChatPage: React.FC = () => {
     if (targetUid && employees.length > 0) {
       const targetEmp = employees.find(e => e.uid === targetUid);
       if (targetEmp) {
-        selectDirectChat(targetEmp);
+        selectDirectChat(targetEmp, true);
         return;
       }
     }
 
     if ((!activeChatId || activeChatId.includes('direct__')) && employees.length > 0) {
-      selectDirectChat(employees[0]);
+      selectDirectChat(employees[0], false);
     }
   }, [searchParams, employees, currentUser?.uid, activeChatId]);
 
-  const selectDirectChat = (emp: EmployeeProfile) => {
+  const selectDirectChat = (emp: EmployeeProfile, openOnMobile = true) => {
     if (!currentUser?.uid || !emp?.uid) return;
     // Standard direct chat ID: sorted combination of 2 UIDs
     const sortedIds = [currentUser.uid, emp.uid].sort();
@@ -92,6 +92,7 @@ export const ChatPage: React.FC = () => {
     setIsGroupChat(false);
     setActiveGroupObj(undefined);
     setActiveRecipientObj(emp);
+    if (openOnMobile) setShowMobileChat(true);
   };
 
   const selectGroupChat = (grp: ChatGroup) => {
@@ -101,6 +102,7 @@ export const ChatPage: React.FC = () => {
     setIsGroupChat(true);
     setActiveGroupObj(grp);
     setActiveRecipientObj(undefined);
+    setShowMobileChat(true);
   };
 
   const filteredEmployees = searchQuery
@@ -112,10 +114,10 @@ export const ChatPage: React.FC = () => {
     : groups;
 
   return (
-    <div className="flex-1 flex flex-col md:flex-row h-[calc(100vh-4rem)] p-3 sm:p-4 lg:p-5 gap-3 lg:gap-4 font-sans overflow-hidden max-w-[1920px] mx-auto w-full">
+    <div className="flex-1 min-h-0 flex flex-col md:flex-row h-full p-2 sm:p-4 lg:p-5 gap-3 lg:gap-4 font-sans overflow-hidden max-w-[1920px] mx-auto w-full">
       
       {/* Left Chat Channels Sidebar */}
-      <aside className="w-full md:w-72 lg:w-80 xl:w-96 bg-slate-950/60 border border-blue-900/20 rounded-2xl flex flex-col p-3.5 sm:p-4 gap-4 shrink-0 shadow-2xl overflow-y-auto scrollbar-thin">
+      <aside className={`${showMobileChat ? 'hidden md:flex' : 'flex'} w-full h-full md:w-72 lg:w-80 xl:w-96 bg-slate-950/60 border border-blue-900/20 rounded-2xl flex-col p-3 sm:p-4 gap-4 shrink-0 shadow-2xl overflow-y-auto scrollbar-thin`}>
         
         {/* Search */}
         <div className="relative">
@@ -186,7 +188,7 @@ export const ChatPage: React.FC = () => {
                 return (
                   <button
                     key={emp.uid}
-                    onClick={() => selectDirectChat(emp)}
+                    onClick={() => selectDirectChat(emp, true)}
                     className={`w-full flex items-center justify-between p-2.5 rounded-xl text-xs font-bold transition-all ${
                       isSelected 
                         ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/40 shadow-gold-glow/10' 
@@ -218,7 +220,7 @@ export const ChatPage: React.FC = () => {
       </aside>
 
       {/* Main Chat Area */}
-      <main className="flex-1 flex flex-col h-full overflow-hidden">
+      <main className={`${showMobileChat ? 'flex' : 'hidden'} md:flex flex-1 min-w-0 flex-col h-full overflow-hidden`}>
         {activeChatId ? (
           <ChatWindow
             chatId={activeChatId}
@@ -227,6 +229,7 @@ export const ChatPage: React.FC = () => {
             isGroup={isGroupChat}
             groupObj={activeGroupObj}
             recipientObj={activeRecipientObj}
+            onBack={() => setShowMobileChat(false)}
           />
         ) : (
           <div className="flex-1 bg-slate-950/40 border border-blue-900/20 rounded-2xl flex flex-col items-center justify-center gap-3 text-slate-500 p-6">

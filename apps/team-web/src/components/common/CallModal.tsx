@@ -109,7 +109,7 @@ export const CallModal: React.FC = () => {
 
       {/* ── Permission Error Banner ── */}
       {permissionError && (
-        <div className="fixed top-5 left-1/2 -translate-x-1/2 z-[200] bg-slate-900 border border-yellow-500/60 rounded-2xl px-5 py-3.5 shadow-2xl backdrop-blur-xl flex items-center gap-3 max-w-lg w-full font-sans text-sm text-white animate-in slide-in-from-top-4 duration-200">
+        <div className="fixed top-3 left-3 right-3 sm:top-5 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 z-[200] bg-slate-900 border border-yellow-500/60 rounded-2xl px-4 sm:px-5 py-3.5 shadow-2xl backdrop-blur-xl flex items-center gap-3 sm:max-w-lg sm:w-full font-sans text-sm text-white animate-in slide-in-from-top-4 duration-200">
           <AlertTriangle className="w-5 h-5 text-yellow-400 shrink-0" />
           <p className="flex-1 text-xs leading-relaxed">{permissionError}</p>
           <button onClick={clearPermissionError} className="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors">
@@ -120,7 +120,7 @@ export const CallModal: React.FC = () => {
 
       {/* ── Incoming call notification (bottom right) ── */}
       {incomingCall && !activeCall && (
-        <div className="fixed bottom-6 right-6 z-[150] w-80 bg-slate-900 border border-slate-700 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.6)] backdrop-blur-2xl font-sans overflow-hidden animate-in slide-in-from-bottom-4 duration-300">
+        <div className="fixed bottom-3 left-3 right-3 sm:bottom-6 sm:left-auto sm:right-6 z-[150] sm:w-80 bg-slate-900 border border-slate-700 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.6)] backdrop-blur-2xl font-sans overflow-hidden animate-in slide-in-from-bottom-4 duration-300">
           {/* pulsing top bar */}
           <div className="h-1 w-full bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-500 animate-pulse" />
           <div className="p-4 flex flex-col gap-4">
@@ -164,7 +164,7 @@ export const CallModal: React.FC = () => {
       {activeCall && (
         activeCall.isMinimized ? (
           /* ── Minimized floating widget ── */
-          <div className="fixed bottom-6 right-6 z-[150] bg-slate-900 border border-slate-700 rounded-2xl p-3 shadow-2xl backdrop-blur-2xl flex items-center gap-3 font-sans">
+          <div className="fixed bottom-3 left-3 right-3 sm:bottom-6 sm:left-auto sm:right-6 z-[150] bg-slate-900 border border-slate-700 rounded-2xl p-3 shadow-2xl backdrop-blur-2xl flex items-center gap-3 font-sans">
             <div className="relative w-9 h-9 rounded-xl overflow-hidden bg-slate-800 shrink-0">
               {activeCall.recipientAvatar
                 ? <img src={activeCall.recipientAvatar} alt={activeCall.recipientName} className="w-full h-full object-cover" />
@@ -186,19 +186,19 @@ export const CallModal: React.FC = () => {
         ) : (
           /* ── Full-screen Meet-style UI ── */
           <div
-            className="fixed inset-0 z-[100] bg-[#1c1f23] flex flex-col font-sans select-none"
+            className="fixed inset-0 z-[100] h-[100dvh] bg-[#1c1f23] flex flex-col font-sans select-none"
             onMouseMove={showControls}
             onTouchStart={showControls}
           >
             {/* Top bar */}
-            <div className={`absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-6 py-4 bg-gradient-to-b from-black/60 to-transparent transition-opacity duration-300 ${controlsVisible ? 'opacity-100' : 'opacity-0'}`}>
-              <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2 bg-slate-900/80 border border-slate-700/60 backdrop-blur-md px-3 py-1.5 rounded-full">
+            <div className={`absolute top-0 left-0 right-0 z-20 flex items-center justify-between gap-2 px-3 sm:px-6 py-3 sm:py-4 bg-gradient-to-b from-black/60 to-transparent transition-opacity duration-300 ${controlsVisible ? 'opacity-100' : 'opacity-0'}`}>
+              <div className="flex items-center gap-1.5 sm:gap-3">
+                <div className="flex items-center gap-2 bg-slate-900/80 border border-slate-700/60 backdrop-blur-md px-2 sm:px-3 py-1.5 rounded-full">
                   <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-                  <span className="text-xs font-bold text-white">BuyQK Teams</span>
+                  <span className="hidden sm:inline text-xs font-bold text-white">BuyQK Teams</span>
                 </div>
                 {activeCall.status === 'connected' && (
-                  <div className="flex items-center gap-1.5 bg-slate-900/80 border border-slate-700/60 backdrop-blur-md px-3 py-1.5 rounded-full">
+                  <div className="flex items-center gap-1.5 bg-slate-900/80 border border-slate-700/60 backdrop-blur-md px-2 sm:px-3 py-1.5 rounded-full">
                     <Signal className="w-3 h-3 text-emerald-400" />
                     <span className="text-xs font-mono text-emerald-400">{fmt(activeCall.durationSeconds)}</span>
                   </div>
@@ -206,7 +206,7 @@ export const CallModal: React.FC = () => {
               </div>
 
               {activeCall.status === 'calling' && (
-                <div className="bg-slate-900/80 border border-yellow-500/30 backdrop-blur-md px-4 py-1.5 rounded-full">
+                <div className="hidden sm:block bg-slate-900/80 border border-yellow-500/30 backdrop-blur-md px-4 py-1.5 rounded-full">
                   <span className="text-xs font-bold text-yellow-400 animate-pulse">Calling {activeCall.recipientName}…</span>
                 </div>
               )}
@@ -265,7 +265,7 @@ export const CallModal: React.FC = () => {
                 /* Voice call: avatar + live waveform */
                 <div className="flex flex-col items-center gap-8">
                   <div className="relative">
-                    <div className="w-36 h-36 rounded-full overflow-hidden border-4 border-slate-700 bg-slate-800 shadow-2xl">
+                    <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden border-4 border-slate-700 bg-slate-800 shadow-2xl">
                       {activeCall.recipientAvatar
                         ? <img src={activeCall.recipientAvatar} alt={activeCall.recipientName} className="w-full h-full object-cover" />
                         : <div className="w-full h-full flex items-center justify-center text-6xl font-black text-white bg-gradient-to-br from-slate-700 to-slate-600">{activeCall.recipientName.charAt(0)}</div>
@@ -320,10 +320,10 @@ export const CallModal: React.FC = () => {
             </div>
 
             {/* ── Bottom control dock ── */}
-            <div className={`absolute bottom-0 left-0 right-0 z-20 flex items-center justify-center gap-3 pb-8 pt-4 bg-gradient-to-t from-black/70 to-transparent transition-opacity duration-300 ${controlsVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+            <div className={`absolute bottom-0 left-0 right-0 z-20 flex items-center justify-center gap-2 sm:gap-3 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:pb-8 pt-4 px-2 bg-gradient-to-t from-black/70 to-transparent transition-opacity duration-300 ${controlsVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
 
               {/* Participants count (decorative) */}
-              <div className="mr-4 flex items-center gap-1.5 bg-slate-900/80 border border-slate-700/60 backdrop-blur-md px-3 py-2 rounded-full">
+              <div className="hidden sm:flex mr-4 items-center gap-1.5 bg-slate-900/80 border border-slate-700/60 backdrop-blur-md px-3 py-2 rounded-full">
                 <Users className="w-3.5 h-3.5 text-slate-400" />
                 <span className="text-xs text-slate-300 font-bold">2</span>
               </div>
@@ -334,7 +334,7 @@ export const CallModal: React.FC = () => {
                 title={activeCall.isMuted ? 'Unmute' : 'Mute'}
                 className={`flex flex-col items-center gap-1 group`}
               >
-                <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${activeCall.isMuted ? 'bg-red-600 hover:bg-red-500 shadow-lg shadow-red-900/40' : 'bg-slate-700 hover:bg-slate-600'}`}>
+                <div className={`w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all ${activeCall.isMuted ? 'bg-red-600 hover:bg-red-500 shadow-lg shadow-red-900/40' : 'bg-slate-700 hover:bg-slate-600'}`}>
                   {activeCall.isMuted ? <MicOff className="w-5 h-5 text-white" /> : <Mic className="w-5 h-5 text-white" />}
                 </div>
                 <span className="text-[9px] text-slate-400 font-medium">{activeCall.isMuted ? 'Unmute' : 'Mute'}</span>
@@ -346,7 +346,7 @@ export const CallModal: React.FC = () => {
                 title={activeCall.isVideoOff ? 'Turn on camera' : 'Turn off camera'}
                 className="flex flex-col items-center gap-1 group"
               >
-                <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${activeCall.isVideoOff ? 'bg-red-600 hover:bg-red-500 shadow-lg shadow-red-900/40' : 'bg-slate-700 hover:bg-slate-600'}`}>
+                <div className={`w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all ${activeCall.isVideoOff ? 'bg-red-600 hover:bg-red-500 shadow-lg shadow-red-900/40' : 'bg-slate-700 hover:bg-slate-600'}`}>
                   {activeCall.isVideoOff ? <VideoOff className="w-5 h-5 text-white" /> : <Video className="w-5 h-5 text-white" />}
                 </div>
                 <span className="text-[9px] text-slate-400 font-medium">{activeCall.isVideoOff ? 'Camera' : 'Camera'}</span>
@@ -356,9 +356,9 @@ export const CallModal: React.FC = () => {
               <button
                 onClick={endCall}
                 title="Leave call"
-                className="flex flex-col items-center gap-1 group mx-3"
+                className="flex flex-col items-center gap-1 group mx-1 sm:mx-3"
               >
-                <div className="w-14 h-14 rounded-full bg-red-600 hover:bg-red-500 flex items-center justify-center transition-all shadow-xl shadow-red-900/50 hover:scale-105">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-red-600 hover:bg-red-500 flex items-center justify-center transition-all shadow-xl shadow-red-900/50 hover:scale-105">
                   <PhoneOff className="w-6 h-6 text-white" />
                 </div>
                 <span className="text-[9px] text-red-400 font-bold">Leave</span>

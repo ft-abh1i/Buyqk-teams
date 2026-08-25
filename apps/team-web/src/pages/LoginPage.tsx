@@ -34,7 +34,7 @@ export const LoginPage: React.FC = () => {
         <div className="absolute w-96 h-96 bg-red-600/10 rounded-full blur-3xl -top-20 -left-20 pointer-events-none" />
         <div className="absolute w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl -bottom-20 -right-20 pointer-events-none" />
 
-        <div className="max-w-md w-full bg-slate-900/60 border border-red-500/30 rounded-3xl p-8 shadow-2xl backdrop-blur-xl flex flex-col items-center text-center gap-6 relative z-10 animate-in fade-in zoom-in-95">
+        <div className="max-w-md w-full bg-slate-900/60 border border-red-500/30 rounded-3xl p-5 sm:p-8 shadow-2xl backdrop-blur-xl flex flex-col items-center text-center gap-6 relative z-10 animate-in fade-in zoom-in-95">
           <div className="w-16 h-16 rounded-2xl bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400 shadow-lg">
             <ShieldAlert className="w-8 h-8 animate-pulse" />
           </div>
@@ -45,7 +45,7 @@ export const LoginPage: React.FC = () => {
             </span>
             <h2 className="text-xl font-extrabold text-white mt-3">Unauthorized Email Account</h2>
             <p className="text-xs text-slate-300 leading-relaxed mt-2 font-medium">
-              The email <span className="font-mono text-red-300 font-bold bg-slate-950 px-2 py-0.5 rounded border border-red-500/20">{unauthorizedEmail || currentUser?.email}</span> is not authorized to access the BuyQK Teams Panel.
+              The email <span className="inline-block max-w-full break-all font-mono text-red-300 font-bold bg-slate-950 px-2 py-0.5 rounded border border-red-500/20">{unauthorizedEmail || currentUser?.email}</span> is not authorized to access the BuyQK Teams Panel.
             </p>
           </div>
 
@@ -83,20 +83,20 @@ export const LoginPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex items-center gap-2 text-xs text-slate-400">
+        <div className="hidden sm:flex items-center gap-2 text-xs text-slate-400">
           <Lock className="w-3.5 h-3.5 text-yellow-500" />
           <span className="font-mono">Secure Enterprise SSO</span>
         </div>
       </header>
 
       {/* Center Hero Box */}
-      <main className="max-w-md w-full mx-auto my-auto relative z-10 flex flex-col gap-8 text-center">
+      <main className="max-w-md w-full mx-auto my-auto py-8 relative z-10 flex flex-col gap-6 sm:gap-8 text-center">
         
         <div className="flex flex-col items-center gap-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 text-xs font-bold uppercase tracking-wider">
             <Sparkles className="w-3.5 h-3.5 animate-spin" /> BuyQK Internal Ecosystem
           </div>
-          <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
+          <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
             Connect, Collaborate & Build Hyperlocal Tech
           </h2>
           <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-sm">
@@ -104,11 +104,11 @@ export const LoginPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="bg-slate-900/60 border border-blue-900/30 rounded-3xl p-6 shadow-2xl backdrop-blur-xl flex flex-col gap-4">
+        <div className="bg-slate-900/60 border border-blue-900/30 rounded-3xl p-4 sm:p-6 shadow-2xl backdrop-blur-xl flex flex-col gap-4">
           <button
             onClick={loginWithGoogle}
             disabled={loading}
-            className="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-slate-950 font-extrabold text-sm py-3.5 rounded-2xl shadow-xl transition-all hover:scale-[1.02] cursor-pointer"
+            className="w-full flex items-center justify-center gap-2 sm:gap-3 bg-white hover:bg-slate-100 text-slate-950 font-extrabold text-xs sm:text-sm py-3.5 px-3 rounded-2xl shadow-xl transition-all hover:scale-[1.02] cursor-pointer"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
@@ -127,7 +127,7 @@ export const LoginPage: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="flex items-center justify-between text-[11px] text-slate-500 font-mono relative z-10">
+      <footer className="flex flex-col sm:flex-row items-center justify-between gap-1 text-[10px] sm:text-[11px] text-slate-500 font-mono relative z-10 text-center">
         <span>buyQk Tech Private Limited &copy; 2026</span>
         <span>Hyperlocal Commerce Engine</span>
       </footer>

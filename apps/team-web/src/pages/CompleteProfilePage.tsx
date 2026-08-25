@@ -166,7 +166,7 @@ export const CompleteProfilePage: React.FC = () => {
         </div>
 
         {/* Form Container */}
-        <form onSubmit={handleSubmit} className="bg-slate-900/60 border border-blue-900/30 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl flex flex-col gap-6">
+        <form onSubmit={handleSubmit} className="bg-slate-900/60 border border-blue-900/30 rounded-3xl p-4 sm:p-8 shadow-2xl backdrop-blur-xl flex flex-col gap-6">
           
           {autoFilled && (
             <div className="bg-emerald-500/10 border border-emerald-500/20 p-3 rounded-2xl flex items-center gap-2 text-xs text-emerald-400 font-bold">

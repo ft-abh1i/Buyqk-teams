@@ -3,14 +3,19 @@ import { useAuth } from '../../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { 
   Search, Bell, LogOut, User as UserIcon, Shield, Sparkles, 
-  Users, HelpCircle, CheckCircle2, ChevronDown, X 
+  ChevronDown, X, Menu
 } from 'lucide-react';
 import { rtdb, db } from '@buyqk/firebase';
 import { ref, onValue } from 'firebase/database';
 import { collection, onSnapshot, query, orderBy, limit } from 'firebase/firestore';
 import { Announcement } from '../../types';
 
-export const Navbar: React.FC = () => {
+interface NavbarProps {
+  mobileMenuOpen?: boolean;
+  onMenuClick?: () => void;
+}
+
+export const Navbar: React.FC<NavbarProps> = ({ mobileMenuOpen = false, onMenuClick }) => {
   const { profile, currentUser, logout, isAdmin, isSuperAdmin } = useAuth();
   const navigate = useNavigate();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -77,20 +82,30 @@ export const Navbar: React.FC = () => {
   }, []);
 
   return (
-    <header className="sticky top-0 z-40 bg-slate-950/80 backdrop-blur-xl border-b border-blue-900/20 px-4 lg:px-6 h-16 flex items-center justify-between font-sans">
+    <header className="sticky top-0 z-40 bg-slate-950/80 backdrop-blur-xl border-b border-blue-900/20 px-3 sm:px-4 lg:px-6 h-14 sm:h-16 flex items-center justify-between font-sans">
       
       {/* Brand & Title */}
-      <div className="flex items-center gap-3">
-        <Link to="/teams/dashboard" className="flex items-center gap-3 group">
-          <img src="/assets/logo.webp" alt="BuyQK Logo" className="h-9 sm:h-10 w-auto object-contain shrink-0 transition-transform group-hover:scale-105 drop-shadow-md" />
-          <div>
+      <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+        <button
+          type="button"
+          onClick={onMenuClick}
+          aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={mobileMenuOpen}
+          className="lg:hidden p-2 rounded-xl bg-slate-900/70 border border-blue-900/30 text-slate-300 hover:text-white hover:border-yellow-500/40 transition-all shrink-0"
+        >
+          {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+        </button>
+
+        <Link to="/teams/dashboard" className="flex min-w-0 items-center gap-2 sm:gap-3 group">
+          <img src="/assets/logo.webp" alt="BuyQK Logo" className="h-8 sm:h-10 w-auto object-contain shrink-0 transition-transform group-hover:scale-105 drop-shadow-md" />
+          <div className="min-w-0">
             <div className="flex items-center gap-2">
-              <h1 className="font-extrabold text-white text-sm tracking-wide uppercase">BUYQK TEAMS</h1>
-              <span className="text-[9px] font-black uppercase px-2 py-0.5 rounded-full bg-yellow-500/10 text-yellow-500 border border-yellow-500/20">
+              <h1 className="font-extrabold text-white text-[11px] sm:text-sm tracking-wide uppercase whitespace-nowrap">BUYQK TEAMS</h1>
+              <span className="hidden sm:inline-flex text-[9px] font-black uppercase px-2 py-0.5 rounded-full bg-yellow-500/10 text-yellow-500 border border-yellow-500/20">
                 Workspace
               </span>
             </div>
-            <p className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase">Internal Collaboration Engine</p>
+            <p className="hidden sm:block text-[10px] text-slate-400 font-semibold tracking-wider uppercase">Internal Collaboration Engine</p>
           </div>
         </Link>
       </div>
@@ -181,7 +196,7 @@ export const Navbar: React.FC = () => {
       </div>
 
       {/* Right Controls */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
 
         {/* Live Online Badge */}
         <div className="hidden sm:flex items-center gap-2 bg-slate-900/60 border border-emerald-500/20 px-3 py-1.5 rounded-xl text-xs font-semibold text-emerald-400">
@@ -209,7 +224,7 @@ export const Navbar: React.FC = () => {
           </button>
 
           {showNotifications && (
-            <div className="absolute right-0 mt-3 w-80 sm:w-96 bg-slate-950 border border-blue-900/40 rounded-2xl shadow-2xl p-4 z-50 animate-in fade-in zoom-in-95 duration-150">
+            <div className="fixed left-3 right-3 top-16 sm:absolute sm:left-auto sm:right-0 sm:top-auto sm:mt-3 sm:w-96 bg-slate-950 border border-blue-900/40 rounded-2xl shadow-2xl p-4 z-50 animate-in fade-in zoom-in-95 duration-150">
               <div className="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
                 <div className="flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-yellow-500" />
@@ -261,7 +276,7 @@ export const Navbar: React.FC = () => {
           </button>
 
           {showProfileMenu && (
-            <div className="absolute right-0 mt-3 w-64 bg-slate-950 border border-blue-900/40 rounded-2xl shadow-2xl p-2 z-50 animate-in fade-in zoom-in-95 duration-150 font-sans">
+            <div className="absolute right-0 mt-3 w-[calc(100vw-1.5rem)] max-w-64 bg-slate-950 border border-blue-900/40 rounded-2xl shadow-2xl p-2 z-50 animate-in fade-in zoom-in-95 duration-150 font-sans">
               <div className="p-3 border-b border-slate-800 mb-1">
                 <p className="text-xs font-bold text-white truncate">{profile?.fullName || currentUser?.displayName || 'Team Member'}</p>
                 <p className="text-[11px] text-slate-400 truncate">{currentUser?.email}</p>

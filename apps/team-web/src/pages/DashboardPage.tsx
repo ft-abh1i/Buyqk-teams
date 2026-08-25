@@ -108,10 +108,10 @@ export const DashboardPage: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 flex flex-col gap-6 p-6 font-sans overflow-y-auto bg-slate-950 select-none">
+    <div className="flex-1 flex flex-col gap-4 sm:gap-6 p-3 sm:p-6 font-sans overflow-y-auto bg-slate-950 select-none">
 
       {/* ── Hero Banner ── */}
-      <div className="relative rounded-3xl bg-gradient-to-r from-[#090d16] via-[#101728] to-[#0d1322] border border-yellow-500/30 p-6 sm:p-8 shadow-2xl overflow-hidden">
+      <div className="relative rounded-3xl bg-gradient-to-r from-[#090d16] via-[#101728] to-[#0d1322] border border-yellow-500/30 p-4 sm:p-8 shadow-2xl overflow-hidden">
         <div className="absolute w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl -top-20 -right-20 pointer-events-none" />
         <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#f59e0b_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
 
@@ -131,7 +131,7 @@ export const DashboardPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex items-center gap-3 w-full sm:w-auto z-10">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto z-10">
             <button
               onClick={() => navigate('/teams/chat')}
               className="flex-1 sm:flex-initial flex items-center justify-center gap-2 bg-yellow-500 hover:bg-yellow-400 text-slate-950 font-black text-xs px-6 py-3 rounded-2xl shadow-gold-glow transition-all hover:scale-105 cursor-pointer"
@@ -149,7 +149,7 @@ export const DashboardPage: React.FC = () => {
       </div>
 
       {/* ── Stats Row ── */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
 
         <div className="bg-slate-900/60 border border-blue-900/30 rounded-2xl p-4 flex items-center justify-between shadow-premium">
           <div className="flex flex-col">
@@ -235,7 +235,7 @@ export const DashboardPage: React.FC = () => {
 
           {/* Teammates */}
           <div className="bg-slate-900/60 border border-blue-900/30 rounded-3xl p-5 shadow-premium flex flex-col gap-4">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-wrap items-center justify-between gap-2">
               <div className="flex items-center gap-2">
                 <Users className="w-4 h-4 text-yellow-500" />
                 <h3 className="text-xs font-black uppercase text-slate-200 tracking-wider">BUYQK TEAMMATES</h3>
@@ -294,7 +294,7 @@ export const DashboardPage: React.FC = () => {
               <div className="flex flex-col gap-3">
                 {announcements.map(ann => (
                   <div key={ann.id} className="bg-slate-950/80 p-4 rounded-2xl border border-blue-900/20 flex flex-col gap-1.5">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-wrap items-center justify-between gap-1">
                       <span className="text-xs font-bold text-yellow-400">{ann.title}</span>
                       <span className="text-[10px] text-slate-500 font-mono">{timeAgo(ann.createdAt)}</span>
                     </div>

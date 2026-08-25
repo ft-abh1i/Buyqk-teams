@@ -127,10 +127,10 @@ export const GroupsPage: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 flex flex-col gap-6 p-6 font-sans overflow-y-auto">
+    <div className="flex-1 flex flex-col gap-4 sm:gap-6 p-3 sm:p-6 font-sans overflow-y-auto">
       
       {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-slate-900/50 border border-blue-900/20 rounded-3xl p-6 shadow-premium">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-slate-900/50 border border-blue-900/20 rounded-3xl p-4 sm:p-6 shadow-premium">
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2">
             <FolderKanban className="w-5 h-5 text-purple-400" />
@@ -142,7 +142,7 @@ export const GroupsPage: React.FC = () => {
         {isSuperAdmin && (
           <button
             onClick={() => setShowCreateModal(true)}
-            className="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-400 text-slate-950 px-4 py-2.5 rounded-2xl text-xs font-black shadow-gold-glow transition-all cursor-pointer"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-yellow-500 hover:bg-yellow-400 text-slate-950 px-4 py-2.5 rounded-2xl text-xs font-black shadow-gold-glow transition-all cursor-pointer"
           >
             <Plus className="w-4 h-4" /> Create New Group
           </button>
@@ -206,8 +206,8 @@ export const GroupsPage: React.FC = () => {
 
       {/* Super Admin Create Group Modal */}
       {showCreateModal && (
-        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-in fade-in">
-          <div className="max-w-lg w-full bg-slate-900 border border-purple-500/40 rounded-3xl p-6 shadow-2xl flex flex-col gap-5">
+        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 z-50 animate-in fade-in">
+          <div className="max-w-lg max-h-[calc(100dvh-1.5rem)] w-full bg-slate-900 border border-purple-500/40 rounded-3xl p-4 sm:p-6 shadow-2xl flex flex-col gap-5 overflow-y-auto">
             <div className="flex items-center justify-between border-b border-slate-800 pb-3">
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-5 h-5 text-purple-400" />

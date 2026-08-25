@@ -68,13 +68,13 @@ export const ProfilePage: React.FC = () => {
   }
 
   return (
-    <div className="flex-1 flex flex-col gap-6 p-6 font-sans overflow-y-auto">
+    <div className="flex-1 flex flex-col gap-4 sm:gap-6 p-3 sm:p-6 font-sans overflow-y-auto">
       
       {/* Banner & Avatar Container */}
       <div className="relative rounded-3xl bg-slate-900/60 border border-blue-900/30 overflow-hidden shadow-2xl">
         
         {/* Top Cover Gradient */}
-        <div className="h-36 bg-gradient-to-r from-yellow-500/20 via-blue-900/40 to-slate-950 p-6 flex justify-end">
+        <div className="h-36 bg-gradient-to-r from-yellow-500/20 via-blue-900/40 to-slate-950 p-3 sm:p-6 flex justify-end">
           {isOwnProfile ? (
             <button
               onClick={() => navigate('/teams/register')}
@@ -93,15 +93,15 @@ export const ProfilePage: React.FC = () => {
         </div>
 
         {/* User Avatar & Name Header */}
-        <div className="p-6 pt-0 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 -mt-14">
+        <div className="p-4 sm:p-6 pt-0 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 -mt-14">
           <div className="flex flex-col sm:flex-row items-start sm:items-end gap-4">
             <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-3xl overflow-hidden border-4 border-slate-950 bg-slate-800 shadow-2xl shrink-0">
               <img src={p.photoUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'} alt={p.fullName} className="w-full h-full object-cover" />
             </div>
 
             <div className="flex flex-col gap-1 pb-1">
-              <div className="flex items-center gap-2">
-                <h1 className="text-2xl font-black text-white">{p.fullName}</h1>
+              <div className="flex flex-wrap items-center gap-2">
+                <h1 className="text-xl sm:text-2xl font-black text-white break-words">{p.fullName}</h1>
                 {p.isSuperAdmin && (
                   <span className="text-[10px] font-mono font-bold bg-purple-500/10 text-purple-400 border border-purple-500/20 px-2 py-0.5 rounded-md flex items-center gap-1">
                     <ShieldCheck className="w-3 h-3" /> Super Admin

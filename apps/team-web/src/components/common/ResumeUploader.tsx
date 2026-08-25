@@ -269,18 +269,18 @@ export const ResumeUploader: React.FC<Props> = ({ uid, initialResumeUrl, onResum
 
   return (
     <div className="bg-slate-900/50 border border-blue-900/30 rounded-2xl p-4 flex flex-col gap-4 font-sans">
-      <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
         <div className="flex items-center gap-2">
           <FileText className="w-4 h-4 text-yellow-500" />
           <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200">Resume Document & Auto-Fill (Optional)</h4>
         </div>
         
         {/* Toggle Mode */}
-        <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-blue-900/20">
+        <div className="flex w-full sm:w-auto items-center gap-1 bg-slate-950 p-1 rounded-xl border border-blue-900/20">
           <button
             type="button"
             onClick={() => setMode('upload')}
-            className={`px-2.5 py-1 text-[10px] font-bold rounded-lg transition-all ${
+            className={`flex-1 sm:flex-none px-2.5 py-1 text-[10px] font-bold rounded-lg transition-all ${
               mode === 'upload' ? 'bg-yellow-500 text-slate-950 font-black' : 'text-slate-400 hover:text-white'
             }`}
           >
@@ -289,7 +289,7 @@ export const ResumeUploader: React.FC<Props> = ({ uid, initialResumeUrl, onResum
           <button
             type="button"
             onClick={() => setMode('link')}
-            className={`px-2.5 py-1 text-[10px] font-bold rounded-lg transition-all ${
+            className={`flex-1 sm:flex-none px-2.5 py-1 text-[10px] font-bold rounded-lg transition-all ${
               mode === 'link' ? 'bg-yellow-500 text-slate-950 font-black' : 'text-slate-400 hover:text-white'
             }`}
           >
@@ -319,18 +319,18 @@ export const ResumeUploader: React.FC<Props> = ({ uid, initialResumeUrl, onResum
       ) : (
         <div className="flex flex-col gap-2">
           <label className="text-[10px] uppercase font-bold text-slate-400">External Resume / Portfolio Link</label>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2">
             <input
               type="url"
               value={resumeLink}
               onChange={(e) => setResumeLink(e.target.value)}
               placeholder="https://drive.google.com/... or https://domain.com/resume.pdf"
-              className="flex-1 bg-slate-950 border border-blue-900/30 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-yellow-500"
+              className="w-full min-w-0 flex-1 bg-slate-950 border border-blue-900/30 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-yellow-500"
             />
             <button
               type="button"
               onClick={handleSaveLink}
-              className="bg-yellow-500 hover:bg-yellow-400 text-slate-950 font-bold text-xs px-4 py-2.5 rounded-xl shadow-gold-glow transition-all"
+              className="w-full sm:w-auto bg-yellow-500 hover:bg-yellow-400 text-slate-950 font-bold text-xs px-4 py-2.5 rounded-xl shadow-gold-glow transition-all"
             >
               Attach Link
             </button>

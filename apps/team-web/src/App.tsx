@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { Navbar } from './components/common/Navbar';
@@ -20,6 +20,7 @@ import { CallModal } from './components/common/CallModal';
 const ProtectedLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { currentUser, profile, loading, isAccessRestricted } = useAuth();
   const location = useLocation();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   if (loading) {
     return (
@@ -44,11 +45,17 @@ const ProtectedLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans overflow-hidden select-none relative">
-      <Navbar />
-      <div className="flex flex-1 overflow-hidden">
-        <Sidebar />
-        <main className="flex-1 overflow-y-auto flex flex-col bg-slate-950/40">
+    <div className="h-[100dvh] min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans overflow-hidden select-none relative">
+      <Navbar
+        mobileMenuOpen={mobileMenuOpen}
+        onMenuClick={() => setMobileMenuOpen((open) => !open)}
+      />
+      <div className="relative flex flex-1 min-h-0 overflow-hidden">
+        <Sidebar
+          mobileOpen={mobileMenuOpen}
+          onMobileClose={() => setMobileMenuOpen(false)}
+        />
+        <main className="min-w-0 flex-1 overflow-y-auto flex flex-col bg-slate-950/40">
           {children}
         </main>
       </div>
